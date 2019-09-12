@@ -11,7 +11,7 @@ import com.springcourse.api.repository.UserRepository;
 import com.springcourse.util.HashUtil;
 
 @Service
-public class UserServce {
+public class UserService {
 	@Autowired private UserRepository userRepository;
 	
 	public User save(User user) {
