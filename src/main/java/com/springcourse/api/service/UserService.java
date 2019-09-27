@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springcourse.api.domain.User;
+import com.springcourse.api.exception.NotFoundException;
 import com.springcourse.api.repository.UserRepository;
 import com.springcourse.util.HashUtil;
 
@@ -30,7 +31,7 @@ public class UserService {
 	
 	public User getById(Long id) {
 		Optional<User> result = userRepository.findById(id);
-		return result.get();
+		return result.orElseThrow(()-> new NotFoundException("Não há um usuário com o id informado"));
 	}
 	
 	public List<User> listAll() {
@@ -41,6 +42,6 @@ public class UserService {
 	public User login(String email, String password) {
 		password = HashUtil.getSecureHash(password);
 		Optional<User> result = userRepository.login(email, password);
-		return result.get();
+		return result.orElseThrow(()-> new NotFoundException("Usuário e senha inválidas!"));
 	}
 }
